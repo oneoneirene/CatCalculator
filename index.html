@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      background: url('annie-spratt-zA7I5BtFbvw-unsplash.jpg');
+      font-family: 'HonyaJi-Re';
+      font-size: 20px;
+      cursor: url(./cath.png) 50 0,auto;
+      /* 以後記得加逗號auto! */
+      -webkit-user-select: none;
+      /* 不被反白 */
+    }
+    .nekomimi{
+      position:absolute;
+      width: 70px;
+      margin: auto;
+      margin-left: 34.3%;
+      margin-top: 4.7%;
+      transform: rotate(-45deg);
+      z-index: 1;
+      cursor: url(./hand.png);
+      -webkit-user-drag: none;
+      /* 不被拖曳 */
+    }
+
+    .right{
+      margin: auto;
+      position:absolute;
+      width: 70px;
+      display: inline-block;
+      right: 35.1%;
+      margin-top: 4.7%;
+      transform: rotate(45deg);
+      z-index: 1;
+      -webkit-user-drag: none;
+    }
+    .tail{
+      position: fixed;
+      width: 200px;
+      right: 23%;
+      top: 40%;
+      transform: rotate(20deg);
+      animation: tail 3s infinite alternate
+    }
+    .hand{
+      position: fixed;
+    }
+
+    table{
+      margin: auto;
+      position: relative;
+      width: 270px;
+      top: 5rem;
+      border-radius: 10px;
+      background: white;
+      word-break: break-all;
+    }
+    td {
+      height: 55px;
+      text-align: center;
+      vertical-align: middle;
+      border: none;
+      border-radius: 50px;
+      background:#fff5f6;
+      box-shadow: 0.5px 0.5px 2px 0px #f2a092;
+    }
+
+    .hover:hover{
+      background-color: #fff5f6;
+      box-shadow: 0px 0px 20px #f2a092;
+      color: #d8796b;
+      font-weight: bold;
+    }
+
+
+
+    @keyframes tail{
+    10% {
+    transform: rotate(20deg);
+    }
+    50% {
+    transform: rotate(30deg);
+    }
+    }
+  </style>
+</head>
+<body>
+
+  <script src="./js/app.js"></script>
+  <script src="./js/particles.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+  <div id="particles-js"></div>
+
+  <div class="white">
+  <img class="nekomimi"src="./leftear w.png"></div>
+  <img class="right" src="./rightear w.png"></div>
+  <img class="tail"src="./275583207020211 (1).png">
+  <table id="cal">
+    <tr>
+      <td class=hover colspan="4" id='input'>0</td>
+    </tr>
+    <tr>
+      <td class="hover">C</td>
+      <td class="hover">/</td>
+      <td class="hover">*</td>
+      <td class="hover">-</td>
+    </tr>  
+    <tr> 
+      <td class="hover">7</td>
+      <td class="hover">8</td>
+      <td class="hover">9</td>
+      <td class="hover" rowspan="2">+</td>
+    </tr>  
+    <tr> 
+      <td class="hover">4</td>
+      <td class="hover">5</td>
+      <td class="hover">6</td>
+    </tr>
+    <tr> 
+      <td class="hover">1</td>
+      <td class="hover">2</td>
+      <td class="hover">3</td>
+      <td class="hover" rowspan="2">=</td>
+    </tr>
+    <tr> 
+      <td class="hover" colspan="2">0</td>
+      <td class="hover">.</td>
+    </tr>
+  </table>
+  </div>
+
+  <script>
+    const input = document.getElementById('input')
+    const tds = document.querySelectorAll('td:not(#input)')
+    const cal = document.getElementById('cal')
+
+    for (const td of tds) {
+      td.onclick = () => {
+        const text = td.innerText
+        if (text === '=') {
+          // 執行算式
+          input.innerText = eval(input.innerText)
+        } else if (text === 'C') {
+          // 重設
+          input.innerText = '0'
+        } else {
+          // 一般按鍵
+          if (input.innerText === '0') {
+            input.innerText = text
+          } else {
+            input.innerText += text
+          }
+        }
+      }
+    }
+
+    document.onkeydown = event => {
+      if (event.key === 'Enter') {
+        input.innerText = eval(input.innerText)
+      } else if (
+        !isNaN(parseInt(event.key)) ||
+        event.key === '+' ||
+        event.key === '-' ||
+        event.key === '*' ||
+        event.key === '/' ||
+        event.key === '.'
+      ) {
+        if (input.innerText === '0') {
+          input.innerText = event.key
+        } else {
+          input.innerText += event.key
+        }
+      }
+    }
+
+    cal.onclick = () => {
+      const audio = new Audio()
+      audio.src = './meow.mp3'
+      audio.play()
+    }
+  </script>
+  
+
+</body>
+</html>
